@@ -42,19 +42,27 @@ Other Applications of fundamental topics of information theory include lossless 
 
 Shannon’s entropy, H(x), is a measure of the information or surprise contained in the observation of an event or random variable. Intuitively, for a random variable with no uncertainty, that is, if the probability of a given event (say X = 1) is 1 or 0, the information gained by observing that variable (observing that x = 1) is 0. On the other hand, if the outcome of an event is maximally uncertain, for example in the case of a coin flip in which the outcomes (heads or tails) are equally likely, the information gained by observing an event carries a lot of value. 
 
-Shannon's entropy is the expectation of the loss, $1/log(f(x))$ for a continuous Random Variable distributed according the the pdf $f(x)$. shannon's entropy is defined as:
+### Definition of Entropy
 
-$$ H(X) = \int f(x)(\frac{1}{log(f(x)})dx $$
-Shannon's Entropy (discrete):
+Shannon's entropy is the expectation of the loss, $1/log(f(x))$ for a continuous random variable distributed according the the pdf $f(x)$. shannon's entropy is defined as:
 
-\[
-E = \sum_{i = 1}^{c} -p_{i}log_{2}p_{i}
-\]
+$$ H(X) = - \int f(x)log(f(x))dx $$
+For a discrete random variable:
 
-where E is measured in bits. 
 
-Joint Entropy
+$$ H(x) = - \sum_{i = 1}^{c} f(x)logF(x) $$
 
+Importantly, the logarithm may be taken with regard to any base. Commonly, $e$, 10, and 2, with entropy being measured in units of 'nats', 'dits', or 'dits', respectively. 
+
+### Definition of Conditional Entropy
+
+Entropy can also be measured given another event. For a continuous random variable, given Y:
+
+$$ H^Y(X) = - \int f_{X | Y}(x|y)(log(f_{X | Y}(x|y))dx $$
+
+For a discrete random variable: 
+
+$$ H(x) = - \sum_{i = 1}^{c} f_{X | Y}(x|y)logf_{X | Y}(x|y) $$
 
 ## Simulations - what does entropy look like?
 
@@ -110,11 +118,11 @@ As we see, the entropy value is highest when the probability of heads and tails 
 
 One application of information theory has been in the subject of genome wide association studies. Geneticists have found relationships between particular DNA mutations at single points in the genome (Single Nulceotide Polymorphims hereafter SNPs) and the risk of particular diseases. Generally, the risk associated with any particular SNP is very small, and risk only appreciates in the circumstance of multiple SNPs. Therefore, conventional association studies require very large sample sizes to identify SNPs associated with disease. Furthermore, the fractional impact of a single SNP is not very informative, so researchers aim to find many SNPs associated with disease in the same analysis. Zhou et al. introduced an entropy based test statistic with the aim of increasing the power of GWAS relative to the conventional chi-square test. 
 
-In a simple GWAS, the genotypes of individuals affected by a disease (cases) are compared to those of individuals unaffected by a disease (controls). In these scenarios, entropy may be used as a measure of the diversity in either group's collective genomes. If the diversity of the case genomes tends to 
+In a simple GWAS, the genotypes of individuals affected by a disease (cases) are compared to those of individuals unaffected by a disease (controls). In these scenarios, entropy may be used as a measure of the diversity in either group's collective genomes. Actually, Shannon's Entropy is used as an index for diversity in ecology, known as the Shannon index. In a GWAS, If the diversity at SNP sites differs between case and control genomes, the association of a disease with the SNPs of interest can be tested. 
 
 # Extension of example
 
- For a set of two SNP locations, M1 and M2, 
+ For a set of two SNP locations, M1 and M2, let there be two alleles, A and a, and B and b, respectively. 
 
 In simulations and 
 
