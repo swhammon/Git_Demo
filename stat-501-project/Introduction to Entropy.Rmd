@@ -1,0 +1,121 @@
+---
+title: "An Introduction to Entropy"
+author: "Ian Callen"
+date: "11/29/2021"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(ggplot2)
+
+```
+
+## Introduction
+
+Information theory is defined as the scientific study of the quantification, storage, and communication of digital information. It deals with data compression and coding theories for the transmission of data from one source to another through noisy channels. It was created in the mid-twentieth century by Claude Shannon and has since grown into a vibrant part of mathematics that has aided the growth of other scientific subjects including statistics, biology, behavioral science, neurology, and statistical mechanics. The theory introduced the concept of channel capacity, which defined the amount of data that can be sent over a noisy channel, bounded by the maximum possible transmission rate-"Shannon's Limit," and stated that it is possible to transmit data over a noisy channel at a rate less than the maximum channel capacity while keeping the probability of error at the receiver's end arbitrarily small.
+
+A key measure in information theory is entropy which can be summarized as the average (expected) amount of the information from the event. Entropy quantifies the amount of uncertainty associated with the value of a random variable or the outcome of a random process. The entropy of a random variable can be explained as the average level of "information", "surprise", or "uncertainty" inherent in the variable's possible outcomes or values. The concept of information entropy was introduced by Claude Shannon in his 1948 paper "A Mathematical Theory of Communication", which is also known as Shannon entropy.
+
+For example, identifying the result of a fair coin flip (with two equally likely outcomes) provides less information (lower entropy) than identifying the outcome from a roll of a die (with six equally likely outcomes). Also, a biased coin has a probability p of landing on heads and a probability 1 - p of landing on tails. The maximum surprise here is for p = 1/2 when there is no reason to expect one outcome over another. In this case, a coin flip has an entropy of one bit. The minimum surprise is for p = 0 or p = 1 when the event is known and the entropy is zero bits. When the entropy is zero bits, this is sometimes termed as unity, where there is no uncertainty at all - no freedom of choice - no information. Other values of p give different entropies that are between zero and one bit. 
+
+Some other relevant measures in information theory are mutual information, error exponents, channel capacity, and relative entropy. Important sub-fields of information theory also include source coding, algorithmic complexity theory, algorithmic information theory, and information-theoretic security.
+
+The basic idea of information theory is that it is the "informational value" of a communicated message depending on the degree to which the content of the message is surprising. If an event is very probable, it is no surprise (and generally not interesting) when that event happens as expected; hence transmission of such a message has very little new information. However, if an event is unlikely to occur, it is much more information to learn that the event happened or is going to happen.
+
+
+# Applications of information theory
+
+Information theory can be applied in many fields. Firstly, Data compression is one major area where the application of this theory is very useful. It can be used to determine the maximum theoretical compression for a given message alphabet. Particularly, if the entropy is less than the average length of encoding, compression is possible. 
+
+Also, information theory in the discrete area can be used in Error-correcting and error-detecting codes. Noisy communication points out how possible is it to construct error-correcting codes. Error-correcting codes add extra bits to help make corrections to errors and thus operate in the opposite direction from compression. Error-detecting codes also indicate that an error has occurred but do not automatically correct the error. Frequently the error correction is done by an automatic request to retransmit the message. Because error-correcting codes typically demand more extra bits than error-detecting codes, in most cases it is more efficient to use an error-detecting code to indicate what has to be retransmitted. Choosing between error-correcting and error-detecting codes requires a good understanding of the nature of the errors that are likely to occur under the given circumstances under which the message is being sent.
+
+Cryptology is generally the science of secure communication and also another field where information theory can be applied. It deals with both cryptanalysis, which deals with the study of how encrypted information is revealed when the secret “key” is unknown, and then cryptography, the study of how information is concealed and encrypted. Cryptographic systems adopt special information called a key to help encrypt and decrypt the messages. Sometimes different keys are used for the encoding and the decoding, while in other circumstances one key is used for both processes. Claude Shannon made a general observation: “the amount of uncertainty we can introduce into the solution cannot be greater than the key uncertainty.” This means that, among other things, random keys should be selected to make the encryption more secure.
+
+Other Applications of fundamental topics of information theory include lossless data compression (e.g. ZIP files), data compression (e.g. MP3s and JPEGs), and channel coding. Its impact has been relevant to the success of the Voyager missions to deep space, the invention of the compact disc, the feasibility of mobile phones, and also the development of the Internet. The theory has also been applied in other areas, including statistical inference, neurobiology, perception, linguistics, black holes, the evolution and function of molecular codes (bioinformatics), molecular dynamics, thermal physics, quantum computing, intelligence gathering, information retrieval, plagiarism detection, anomaly detection, pattern recognition, and even art creation.
+
+
+## Background
+
+Shannon’s entropy, H(x), is a measure of the information or surprise contained in the observation of an event or random variable. Intuitively, for a random variable with no uncertainty, that is, if the probability of a given event (say X = 1) is 1 or 0, the information gained by observing that variable (observing that x = 1) is 0. On the other hand, if the outcome of an event is maximally uncertain, for example in the case of a coin flip in which the outcomes (heads or tails) are equally likely, the information gained by observing an event carries a lot of value. 
+
+Shannon's entropy is the expectation of the loss, $1/log(f(x))$ for a continuous Random Variable distributed according the the pdf $f(x)$. shannon's entropy is defined as:
+
+$$ H(X) = \int f(x)(\frac{1}{log(f(x)})dx $$
+Shannon's Entropy (discrete):
+
+\[
+E = \sum_{i = 1}^{c} -p_{i}log_{2}p_{i}
+\]
+
+where E is measured in bits. 
+
+Joint Entropy
+
+
+## Simulations - what does entropy look like?
+
+# Discrete Example
+
+We'll first show a simple example of entropy in a discrete context. Consider a tossing a coin where you have two outcomes - heads or tails - where x is the event that the toss results in a heads. We'll consider a fair coin first in this example (i.e., where p = .5). When we toss a fair coin, we are completely uncertain about the result. Why? Because when tossing a fair coin, both heads and tails are equally likely. We see these here:
+
+```{r, echo = TRUE}
+# let the probability of a single coin flip (assume, it's a fair coin)
+p <- .5
+q <- (1 - p)
+
+# calculate the information for the event using log base 2
+h <- -p*log2(p) + (-q*log2(q))
+
+# outputting the findings
+print(paste0("p(x) =", p, "; information: ", h))
+```
+
+When the probability of heads and tails are equally likely events to occur, the entropy comes out to be equal to 1. Consider a biased coin where the probability of heads is quite small (p = .01):
+
+```{r, echo = TRUE}
+# let the probability of a single coin flip (assume, it's a fair coin)
+p <- .01
+q <- (1 - p)
+
+# calculate the information for the event using log base 2
+h <- -p*log2(p) + (-q*log2(q))
+
+# outputting the findings
+print(paste0("p(x) =", p, "; information: ", h))
+```
+
+Here, the entropy value is found to be substantially smaller than that found in the fair coin example. This is because we are more certain in the outcome - when we have probability of heads being nearly zero, we are more confident in the coin being tails. We can visually show how entropy in this situation changes as the probability of heads/tails changes:
+
+```{r, echo = TRUE}
+p <- c(seq(from = .01, to = .99, by = .01))
+h <- NULL
+for(i in 1:length(p)) {
+  q[i] <- (1 - p[i])
+  h[i] <- -p[i]*log2(p[i]) + (-q[i]*log2(q[i]))
+}
+
+plot(p, h, xlab = "Probability of Heads - P(x)", ylab = "Entropy Value")
+```
+
+As we see, the entropy value is highest when the probability of heads and tails is equal - a fair coin. 
+
+# Continuous Example
+
+
+## An Extended Example - Genome Wide Association Studies (GWAS)
+
+One application of information theory has been in the subject of genome wide association studies. Geneticists have found relationships between particular DNA mutations at single points in the genome (Single Nulceotide Polymorphims hereafter SNPs) and the risk of particular diseases. Generally, the risk associated with any particular SNP is very small, and risk only appreciates in the circumstance of multiple SNPs. Therefore, conventional association studies require very large sample sizes to identify SNPs associated with disease. Furthermore, the fractional impact of a single SNP is not very informative, so researchers aim to find many SNPs associated with disease in the same analysis. Zhou et al. introduced an entropy based test statistic with the aim of increasing the power of GWAS relative to the conventional chi-square test. 
+
+In a simple GWAS, the genotypes of individuals affected by a disease (cases) are compared to those of individuals unaffected by a disease (controls). In these scenarios, entropy may be used as a measure of the diversity in either group's collective genomes. If the diversity of the case genomes tends to 
+
+# Extension of example
+
+ For a set of two SNP locations, M1 and M2, 
+
+In simulations and 
+
+Treating each SNP as an independent Random Variable, 
